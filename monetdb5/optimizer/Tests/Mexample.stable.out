@@ -1,0 +1,47 @@
+stdout of test 'Mexample` in directory 'monetdb5/optimizer` itself:
+
+
+# 23:53:03 >  
+# 23:53:03 >  Mtimeout -timeout 60 Mserver "--config=/ufs/mk/monet5/src/mal/Tests/All.conf" --debug=10 --set "monet_mod_path=/ufs/mk/monet5/Linux/lib/MonetDB5:/ufs/mk/opensource/MonetDB/Linux/lib/MonetDB" --set "gdk_dbfarm=/ufs/mk/opensource/MonetDB/Linux/var/MonetDB5/dbfarm" --set "sql_logdir=/ufs/mk/opensource/MonetDB/Linux/var/MonetDB5/log" --set mapi_port=39352 --set sql_port=45171 --set xquery_port=52900 --set monet_prompt= --trace --dbname=mTests_src_optimizer  Mexample.mal </dev/null
+# 23:53:03 >  
+
+# MonetDB server v5.7.0, based on kernel v1.25.0
+# Serving database 'mTests_src_optimizer', using 4 threads
+# Compiled for x86_64-unknown-linux-gnu/64bit with 64bit OIDs dynamically linked
+# Copyright (c) 1993-July 2008 CWI.
+# Copyright (c) August 2008- MonetDB B.V., all rights reserved
+# Visit http://monetdb.cwi.nl/ for further information
+# Listening for connection requests on mapi:monetdb://eir.ins.cwi.nl:32348/
+function user.main():void;
+    b := bat.new(:oid,:int);
+    bat.append(b,1);
+    X_11 := bat.reverse(b);
+    X_13 := bat.new(nil:oid,nil:int);
+barrier (X_17,X_18) := iterator.new(b);
+    X_20 := calc.+(X_18,1);
+    X_21 := algebra.fetch(X_11,X_17);
+    bat.insert(X_13,X_21,X_20);
+    redo (X_17,X_18) := iterator.next(b);
+exit (X_17,X_18);
+    c:bat[:oid,:int]  := X_13;
+    mdb.List();
+end main;
+function user.main():void;              #  0 main:void := user.main() {G}
+    b := bat.new(:oid,:int);            #  1 b:bat[:oid,:int] := CMDBATnew(_2:oid, _3:int) {G}
+    bat.append(b,1);                    #  2 _4:bat[:oid,:int] := BKCappend_val_wrap(b:bat[:oid,:int], _5:int) {G}
+    X_11 := bat.reverse(b);             #  3 _11:bat[:int,:oid] := BKCreverse(b:bat[:oid,:int]) {G}
+    X_13 := bat.new(nil:oid,nil:int);   #  4 _13:bat[:oid,:int] := CMDBATnew(_14:oid, _15:int) {G}
+barrier (X_17,X_18) := iterator.new(b); #  5 (_17:oid, _18:int) := ITRbunIterator(b:bat[:oid,:int]) {GJ10}
+    X_20 := calc.+(X_18,1);             #  6 _20:int := CMDvarADDsignal(_18:int, _5:int) 
+    X_21 := algebra.fetch(X_11,X_17);   #  7 _21:oid := ALGfetchoid(_11:bat[:int,:oid], _17:oid) {G}
+    bat.insert(X_13,X_21,X_20);         #  8 _23:bat[:oid,:int] := BKCinsert_bun(_13:bat[:oid,:int], _21:oid, _20:int) {G}
+    redo (X_17,X_18) := iterator.next(b);#  9 (_17:oid, _18:int) := ITRbunNext(b:bat[:oid,:int]) {GJ6}
+exit (X_17,X_18);                       # 10 (_17:oid, _18:int) 
+    c:bat[:oid,:int]  := X_13;          # 11 c:bat[:oid,:int] := _13:bat[:oid,:int] {G}
+    mdb.List();                         # 12 _10:void := MDBlistDetail() 
+end main;                               # 13  
+
+# 23:53:03 >  
+# 23:53:03 >  Done.
+# 23:53:03 >  
+

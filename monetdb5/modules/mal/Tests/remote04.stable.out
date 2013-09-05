@@ -1,0 +1,59 @@
+stdout of test 'remote04` in directory 'monetdb5/modules/mal` itself:
+
+
+# 18:53:42 >  
+# 18:53:42 >   mserver5 "--config=/ufs/fabian/scratch/monetdb/current/program-x86_64/etc/monetdb5.conf" --debug=10 --set gdk_nr_threads=0 --set "monet_mod_path=/ufs/fabian/scratch/monetdb/current/program-x86_64/lib/MonetDB5:/ufs/fabian/scratch/monetdb/current/program-x86_64/lib/MonetDB5/lib:/ufs/fabian/scratch/monetdb/current/program-x86_64/lib/MonetDB5/bin" --set "gdk_dbfarm=/net/pegasus.ins.cwi.nl/export/scratch0/fabian/vtmp/mtest-current-pegasus.ins.cwi.nl/five/dbfarm" --set "sql_logdir=/net/pegasus.ins.cwi.nl/export/scratch0/fabian/vtmp/mtest-current-pegasus.ins.cwi.nl/five/sqllog" --set "xquery_logdir=/net/pegasus.ins.cwi.nl/export/scratch0/fabian/vtmp/mtest-current-pegasus.ins.cwi.nl/five/xquerylog" --set mapi_open=true --set xrpc_open=true --set mapi_port=39919 --set xrpc_port=44548 --set monet_prompt= --trace  --dbname=mTests_src_modules_mal  remote04.mal
+# 18:53:42 >  
+
+
+
+
+
+# MonetDB server v5.7.0, based on kernel v1.25.0
+# Serving database 'mTests_src_modules_mal'
+# Compiled for x86_64-pc-linux-gnu/64bit with 64bit OIDs dynamically linked using 2 threads
+# Copyright (c) 1993-2008 CWI, all rights reserved
+# Visit http://monetdb.cwi.nl/ for further information
+# Listening for connection requests on mapi:monetdb://eir.ins.cwi.nl:37931/
+function user.main():void;
+# let connect figure out itself how to connect to the running db 
+    uri := sabaoth.getLocalConnectionURI();
+    conn:str  := remote.connect(uri,"monetdb","monetdb");
+    io.print(conn);
+    b := bat.new(:oid,:str);
+    bat.append(b,"bla");
+    bat.append(b,"boe");
+    bat.append(b,"foo");
+    bat.append(b,"bar");
+    bat.append(b,"baz");
+    k := remote.put(conn,b);
+    io.print(k);
+    l := remote.put(conn,"bar");
+    io.print(l);
+    m := remote.put(conn,"boe");
+    io.print(m);
+# perform a selection remote, and get the result back 
+    k := remote.exec(conn,"algebra","select",k,l,m);
+    j:bat[:oid,:str]  := remote.get(conn,k);
+    io.print(j);
+# help testweb a bit, since currently no cleanup is done on server 
+# shutdown 
+    remote.disconnect(conn);
+end main;
+[ "mTests_monetdb5_modules_mal_monetdb_0" ]
+[ "rmt0_b_bat_oid_str" ]
+[ "rmt1__16_str" ]
+[ "rmt2__12_str" ]
+#-----------------#
+# h	t	  # name
+# str	int	  # type
+#-----------------#
+[ 0@0,	  "bla"	  ]
+[ 1@0,	  "boe"	  ]
+[ 3@0,	  "bar"	  ]
+[ 4@0,	  "baz"	  ]
+
+# 12:15:04 >  
+# 12:15:04 >  "Done."
+# 12:15:04 >  
+

@@ -1,0 +1,46 @@
+# The contents of this file are subject to the MonetDB Public License
+# Version 1.1 (the "License"); you may not use this file except in
+# compliance with the License. You may obtain a copy of the License at
+# http://www.monetdb.org/Legal/MonetDBLicense
+#
+# Software distributed under the License is distributed on an "AS IS"
+# basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+# License for the specific language governing rights and limitations
+# under the License.
+#
+# The Original Code is the MonetDB Database System.
+#
+# The Initial Developer of the Original Code is CWI.
+# Portions created by CWI are Copyright (C) 1997-July 2008 CWI.
+# Copyright August 2008-2013 MonetDB B.V.
+# All Rights Reserved.
+
+pattern bat.new(ht:oid, tt:any_1) :bat[:oid,:any_1]
+address CMDBATnew
+comment "Creates a new empty transient BAT, with head- and tail-types as indicated.";
+
+pattern bat.new(ht:oid, tt:any_1, size:int) :bat[:oid,:any_1]
+address CMDBATnewint
+comment "Creates a new BAT with sufficient space.";
+
+pattern bat.new(ht:oid, tt:any_1, size:lng) :bat[:oid,:any_1]
+address CMDBATnew
+comment "Creates a new BAT and allocate space.";
+
+pattern bat.new(b:bat[:oid,:any_1] ) :bat[:oid,:any_1]
+address CMDBATnewDerived;
+pattern bat.new(b:bat[:oid,:any_1], size:lng) :bat[:oid,:any_1]
+address CMDBATnewDerived;
+
+command bat.new(nme:str):bat[:oid,:any_1]
+address CMDBATderivedByName
+comment "Localize a bat by name and produce a clone.";
+
+pattern bat.partition(b:bat[:oid,:any_1]):bat[:oid,:any_1]...
+address CMDbatpartition
+comment "Create a serie of slices over the BAT argument. The BUNs are distributed evenly.";
+
+pattern bat.partition(b:bat[:oid,:any_1], pieces:int, n:int):bat[:oid,:any_1]
+address CMDbatpartition2
+comment "Create the n-th slice over the BAT broken into severral pieces.";
+

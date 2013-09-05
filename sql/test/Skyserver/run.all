@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# The contents of this file are subject to the MonetDB Public License
+# Version 1.1 (the "License"); you may not use this file except in
+# compliance with the License. You may obtain a copy of the License at
+# http://www.monetdb.org/Legal/MonetDBLicense
+#
+# Software distributed under the License is distributed on an "AS IS"
+# basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+# License for the specific language governing rights and limitations
+# under the License.
+#
+# The Original Code is the MonetDB Database System.
+#
+# The Initial Developer of the Original Code is CWI.
+# Portions created by CWI are Copyright (C) 1997-July 2008 CWI.
+# Copyright August 2008-2013 MonetDB B.V.
+# All Rights Reserved.
+
+PWD=`pwd`
+SQL='mclient -lsql'
+if [ $# -eq 1 ]; then
+	SQL=$1
+fi
+
+#Generate Data...
+
+#Bulk-Load into SQL server...
+
+cat << EOF > .monetdb
+user=monetdb
+password=monetdb
+EOF
+
+echo Create User
+$SQL < create_user.sql
+
+cat << EOF > .monetdb
+user=skyserver
+password=skyserver
+EOF
+
+echo tables
+$SQL < Skyserver_tables.sql
+
+echo loading
+cat Skyserver_import.sql | sed -e "s|DATA|$PWD/microsky|g" | $SQL
+
+echo Constraints
+$SQL < Skyserver_constraints.sql
+
+echo views
+$SQL < Skyserver_views.sql
+
+echo functions
+$SQL < Skyserver_functions.sql
+
+echo Cleanup
+$SQL < Skyserver_dropFunctions.sql
+$SQL < Skyserver_dropMs_functions.sql
+$SQL < Skyserver_dropMath.sql
+$SQL < Skyserver_dropViews.sql
+$SQL < Skyserver_dropConstraints.sql
+$SQL < Skyserver_dropTables.sql
+
+cat << EOF > .monetdb
+user=monetdb
+password=monetdb
+EOF
+
+echo Remove User
+$SQL < drop_user.sql
+
+rm -f .monetdb

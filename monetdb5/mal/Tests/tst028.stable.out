@@ -1,0 +1,59 @@
+stdout of test 'tst028` in directory 'monetdb5/mal` itself:
+
+
+# 08:29:21 >  
+# 08:29:21 >  Mtimeout -timeout 60 mserver5 "--config=/ufs/mk/monet5/Linux/etc/monetdb5.conf" --debug=10 --set "monet_mod_path=/ufs/mk/monet5//Linux/lib/MonetDB5:/ufs/mk/monet5//Linux/lib/MonetDB5/lib:/ufs/mk/monet5//Linux/lib/MonetDB5/bin" --set "gdk_dbfarm=/ufs/mk/monet5//Linux/var/MonetDB5/dbfarm" --set "sql_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/sql_logs" --set "xquery_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/xquery_logs" --set mapi_port=37847 --set xrpc_port=44897 --set monet_prompt= --trace --dbname=mTests_src_mal  tst028.mal < /dev/null
+# 08:29:21 >  
+
+# MonetDB 5 server v11.12.0
+# This is an unreleased version
+# Serving database 'mTests_mal', using 8 threads
+# Compiled for x86_64-unknown-linux-gnu/64bit with 64bit OIDs dynamically linked
+# Found 15.629 GiB available main-memory.
+# Copyright (c) 1993-July 2008 CWI.
+# Copyright (c) August 2008-2013 MonetDB B.V., all rights reserved
+# Visit http://www.monetdb.org/ for further information
+# Listening for connection requests on mapi:monetdb://vienna.ins.cwi.nl:36445/
+# MonetDB/GIS module loaded
+# MonetDB/JAQL module loaded
+# MonetDB/SQL module loaded
+# MonetDB/DataCell loaded
+function user.f(a:bat[:oid,:any]):void;
+    io.print(a);
+end f;
+function user.h(a:bat[:oid,:str]):void;
+    io.print(a);
+end h;
+##function g(b:bat[:int,:any]):void;
+#	#f(b);
+##end g;
+#function g(b:any):void;
+#end g;
+function user.g(b:any):void;
+end g;
+#
+#z:= bat.new(:int,:str);
+#f(z);
+#g(z);
+#zrev:= bat.reverse(z);
+#h(zrev);
+#
+function user.main():void;
+    z := bat.new(:oid,:str);
+    user.f(z);
+    user.g(z);
+    user.h(z);
+end main;
+#-----------------#
+# h	t	  # name
+# int	str	  # type
+#-----------------#
+#-----------------#
+# t	h	  # name
+# str	int	  # type
+#-----------------#
+
+# 08:29:21 >  
+# 08:29:21 >  Done.
+# 08:29:21 >  
+

@@ -1,0 +1,100 @@
+stdout of test 'time00` in directory 'monetdb5/modules/atoms` itself:
+
+
+# 23:38:23 >  
+# 23:38:23 >  Mtimeout -timeout 60 mserver5 "--config=/ufs/mk/monet5/Linux/etc/monetdb5.conf" --debug=10 --set "monet_mod_path=/ufs/mk/monet5//Linux/lib/MonetDB5:/ufs/mk/monet5//Linux/lib/MonetDB5/lib:/ufs/mk/monet5//Linux/lib/MonetDB5/bin" --set "gdk_dbfarm=/ufs/mk/monet5//Linux/var/MonetDB5/dbfarm" --set "sql_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/sql_logs" --set "xquery_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/xquery_logs" --set mapi_port=37547 --set xrpc_port=46482 --set monet_prompt= --trace --dbname=mTests_src_modules_atoms  time00.mal
+# 23:38:23 >  
+
+# MonetDB Server v5.0.0_beta2_1
+# Copyright (c) 1993-2007 CWI, all rights reserved
+# Compiled for x86_64-redhat-linux-gnu/64bit with 64bit OIDs dynamically linked
+# dbname:mTests_src_modules_atoms
+# Visit http://monetdb.cwi.nl/ for further information
+# Listening for connection requests on mapi:monetdb://eir.ins.cwi.nl:37931/
+function user.main():void;
+# temporal stuff. 
+    date_01 := mtime.date("5000-JAN-01");
+    date_02 := mtime.date("1968-FEBR-29");
+    date_03 := mtime.date("1-MARCH-01");
+    date_04 := mtime.date("-5867411-JAN-1");
+    date_05 := mtime.date("-768/octobe/01");
+    date_06 := mtime.date("5000\\novembe\\01");
+    date_07 := mtime.date("-1999/jun/01");
+    date_08 := mtime.date(nil);
+    f := calc.min(date_01,date_02);
+    io.print(f);
+    f := calc.min(date_02,date_01);
+    io.print(f);
+    f := calc.min(date_02,date_08);
+    io.print(f);
+    f := calc.min(date_08,date_08);
+    io.print(f);
+    b := bat.new(:oid,:date);
+    bat.append(b,date_01);
+    bat.append(b,date_02);
+    bat.append(b,date_03);
+    bat.append(b,date_04);
+    bat.append(b,date_05);
+    bat.append(b,date_06);
+    bat.append(b,date_07);
+    io.print(b);
+    zy := batmtime.year(b);
+    io.print(zy);
+    zm := batmtime.month(b);
+    io.print(zm);
+    zd := batmtime.day(b);
+    io.print(zd);
+end main;
+[ 1968-02-29 ]
+[ 1968-02-29 ]
+[ nil ]
+[ nil ]
+#-------------------------#
+# h	t		  # name
+# int	date		  # type
+#-------------------------#
+[ 0@0,	  5000-01-01	  ]
+[ 1@0,	  1968-02-29	  ]
+[ 2@0,	  1-03-01	  ]
+[ 3@0,	  -5867411-01-01  ]
+[ 4@0,	  -768-10-01	  ]
+[ 5@0,	  5000-11-01	  ]
+[ 6@0,	  -1999-06-01	  ]
+#-------------------------#
+# h	t		  # name
+# int	int		  # type
+#-------------------------#
+[ 0@0,	  5000		  ]
+[ 1@0,	  1968		  ]
+[ 2@0,	  1		  ]
+[ 3@0,	  -5867411	  ]
+[ 4@0,	  -768		  ]
+[ 5@0,	  5000		  ]
+[ 6@0,	  -1999		  ]
+#-----------------#
+# h	t	  # name
+# int	int	  # type
+#-----------------#
+[ 0@0,	  1	  ]
+[ 1@0,	  2	  ]
+[ 2@0,	  3	  ]
+[ 3@0,	  1	  ]
+[ 4@0,	  10	  ]
+[ 5@0,	  11	  ]
+[ 6@0,	  6	  ]
+#-----------------#
+# h	t	  # name
+# int	int	  # type
+#-----------------#
+[ 0@0,	  1	  ]
+[ 1@0,	  29	  ]
+[ 2@0,	  1	  ]
+[ 3@0,	  1	  ]
+[ 4@0,	  1	  ]
+[ 5@0,	  1	  ]
+[ 6@0,	  1	  ]
+
+# 23:38:23 >  
+# 23:38:23 >  Done.
+# 23:38:23 >  
+

@@ -1,0 +1,65 @@
+stdout of test 'explain.SF-1739353` in directory 'sql/test/BugTracker` itself:
+
+
+# 15:15:36 >  
+# 15:15:36 >   mserver5 "--config=/ufs/manegold/_/scratch0/Monet/Testing/Candidate/prefix.--enable-strict_--disable-optimize_--enable-debug_--enable-assert/etc/monetdb5.conf" --debug=10 --set gdk_nr_threads=0 --set "monet_mod_path=/ufs/manegold/_/scratch0/Monet/Testing/Candidate/prefix.--enable-strict_--disable-optimize_--enable-debug_--enable-assert/lib64/MonetDB5:/ufs/manegold/_/scratch0/Monet/Testing/Candidate/prefix.--enable-strict_--disable-optimize_--enable-debug_--enable-assert/lib64/MonetDB5/lib:/ufs/manegold/_/scratch0/Monet/Testing/Candidate/prefix.--enable-strict_--disable-optimize_--enable-debug_--enable-assert/lib64/MonetDB5/bin" --set "gdk_dbfarm=/ufs/manegold/_/scratch0/Monet/Testing/Candidate/prefix.--enable-strict_--disable-optimize_--enable-debug_--enable-assert/var/MonetDB5/dbfarm"  --set mapi_open=true --set xrpc_open=true --set mapi_port=33159 --set xrpc_port=45591 --set monet_prompt= --trace  "--dbname=mTests_src_test_BugTracker" --set mal_listing=0 "--dbinit= include sql;" ; echo ; echo Over..
+# 15:15:36 >  
+
+# MonetDB server v5.16.0, based on kernel v1.34.0
+# Serving database 'mTests_src_test_BugTracker', using 4 threads
+# Compiled for x86_64-unknown-linux-gnu/64bit with 64bit OIDs dynamically linked
+# Detected 7.753 GiB (8324386816 bytes) main-memory.
+# Copyright (c) 1993-July 2008 CWI.
+# Copyright (c) August 2008-2009 MonetDB B.V., all rights reserved
+# Visit http://monetdb.cwi.nl/ for further information
+# Listening for connection requests on mapi:monetdb://rig.ins.cwi.nl:33159/
+# MonetDB/SQL module v2.34.0 loaded
+
+Ready.
+#function user.main():void;
+#    clients.quit();
+#end main;
+
+
+Operation successful
+
++----------------------------------------------------------------------+
+| mal    |
++======================================================================+
+| function user.s0_1{autoCommit=true}():void;                         |
+|     X_3:bat[:oid,:str]  := bat.new(nil:oid,nil:str);                |
+|     X_2 := sql.mvc(); |
+|     X_9 := sql.bind(X_2,"sys","_tables","type",0);             |
+|     X_6:bat[:oid,:oid]  := sql.tid(X_2,"sys","_tables");       |
+|     X_55 := algebra.subselect(X_9,X_6,2:sht,2:sht,true,true,true);   |
+|     (X_12,r1_12) := sql.bind(X_2,"sys","_tables","type",2);    |
+|     X_56 := algebra.subselect(r1_12,2:sht,2:sht,true,true,true);     |
+|     X_15 := sql.bind(X_2,"sys","_tables","type",1);            |
+|     X_57 := algebra.subselect(X_15,X_6,2:sht,2:sht,true,true,true);  |
+|     X_17 := sql.subdelta(X_55,X_6,X_12,X_56,X_57);                   |
+|     X_18 := sql.bind(X_2,"sys","_tables","name",0);                  |
+|     (X_20,r1_25) := sql.bind(X_2,"sys","_tables","name",2);          |
+|     X_22 := sql.bind(X_2,"sys","_tables","name",1);                  |
+|     X_23 := sql.projectdelta(X_17,X_18,X_20,r1_25,X_22);             |
+|     X_24 := bat.append(X_3,X_23,true);                               |
+|     X_27 := sql.bind(X_2,"tmp","_tables","type",0);                  |
+|     X_28 := X_27;                                                    |
+|     X_25:bat[:oid,:oid]  := sql.tid(X_2,"tmp","_tables");            |
+|     X_29 := algebra.subselect(X_28,X_25,2:sht,2:sht,true,true,true); |
+|     X_31 := sql.bind(X_2,"tmp","_tables","name",0);                  |
+|     X_33 := X_31;                                                    |
+|     X_34 := algebra.leftfetchjoin(X_29,X_33);                        |
+|     X_35 := bat.append(X_24,X_34,true);                              |
+|     X_36 := sql.resultSet(1,1,X_35);                                 |
+|     sql.rsColumn(X_36,".tables","name","varchar",1024,0,X_35);       |
+|     X_42 := io.stdout();                                             |
+|     sql.exportResult(X_42,X_36);                                     |
+| end s0_1;                                                           |
++----------------------------------------------------------------------+
+29 rows
+
+
+# 15:15:37 >  
+# 15:15:37 >  Done.
+# 15:15:37 >  
+

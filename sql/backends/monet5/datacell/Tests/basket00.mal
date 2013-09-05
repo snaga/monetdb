@@ -1,0 +1,14 @@
+#Testing the basket functionality
+# this assumes you have ran first datacell00.sql
+
+sql.init();
+basket.register("x");
+
+basket.lock("x");
+io.print("x locked");
+basket.unlock("x");
+io.print("x unlocked");
+
+basket.drop("x");
+io.print("x dropped");
+

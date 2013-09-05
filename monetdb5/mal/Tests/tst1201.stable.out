@@ -1,0 +1,568 @@
+stdout of test 'tst1201` in directory 'monetdb5/mal` itself:
+
+
+# 23:31:29 >  
+# 23:31:29 >  Mtimeout -timeout 60 mserver5 "--config=/ufs/mk/monet5/Linux/etc/monetdb5.conf" --debug=10 --set "monet_mod_path=/ufs/mk/monet5//Linux/lib/MonetDB5:/ufs/mk/monet5//Linux/lib/MonetDB5/lib:/ufs/mk/monet5//Linux/lib/MonetDB5/bin" --set "gdk_dbfarm=/ufs/mk/monet5//Linux/var/MonetDB5/dbfarm" --set "sql_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/sql_logs" --set "xquery_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/xquery_logs" --set mapi_port=35239 --set xrpc_port=40860 --set monet_prompt= --trace --dbname=mTests_src_mal  tst1201.mal
+# 23:31:29 >  
+
+# MonetDB Server v5.0.0_beta2_1
+# Copyright (c) 1993-2007 CWI, all rights reserved
+# Compiled for x86_64-redhat-linux-gnu/64bit with 64bit OIDs dynamically linked
+# dbname:mTests_src_mal
+# Visit http://monetdb.cwi.nl/ for further information
+## Mil compiler Version 1.0)
+## Copyright (c) 1993-2001, CWI. All rights reserved.
+#
+## Predefined code segment
+##
+###line 531 "/ufs/mk/monet_5-0/src/modules/atoms/monettime.mx"
+##module(monettime,alarm);
+##
+##
+##
+#lzone:= mtime.timezone("GMT+1");
+#mtime.timezone_local(lzone);
+###line 535 "/ufs/mk/monet_5-0/src/modules/atoms/monettime.mx"
+### test the various ways to create rules
+#	rule_jan:= mtime.rule("1st MON from start of JAN@01:15");
+##var rule_jan := mtime.rule("1st MON from start of JAN@01:15");
+#	rule_mar:= mtime.rule("first WEDNE on or after march 10@01:15");
+##var rule_mar := mtime.rule("first WEDNE on or after march 10@01:15");
+#	rule_apr:= mtime.rule("last THU on or before aPr 1@01:15");
+##var rule_apr := mtime.rule("last THU on or before aPr 1@01:15");
+#	rule_may:= mtime.rule("MAY 26@01:15");
+##var rule_may := mtime.rule("MAY 26@01:15");
+#	rule_jun:= mtime.rule("2nd TUE from end of june@01:15");
+##var rule_jun := mtime.rule("2nd TUE from end of june@01:15");
+#	rule_jul:= mtime.rule(7,1,1,75);
+##var rule_jul := mtime.rule(7,1,1,75);
+#	rule_aug:= mtime.rule(8,-1,1,75);
+##var rule_aug := mtime.rule(8,-1,1,75);
+#	rule_sep:= mtime.rule(9,-10,3,75);
+##var rule_sep := mtime.rule(9,-10,3,75);
+#	rule_oct:= mtime.rule(10,31,0,75);
+##var rule_oct := mtime.rule(10,31,0,75);
+#	rule_nov:= mtime.rule(11,-10,-4,75);
+##var rule_nov := mtime.rule(11,-10,-4,75);
+### nil rules
+#	rule_dec:= mtime.rule(12,-31,0,75);
+##var rule_dec := mtime.rule(12,-31,0,75);
+#	rule_feb:= mtime.rule("first fRiDaY on or after february 30@01:15");
+##var rule_feb := mtime.rule("first fRiDaY on or after february 30@01:15");
+## 
+#	rule_bat:= bat.new(:str,:zrule,10);
+##var rule_bat := bat.new(str,rule,10);
+#	bat.insert(rule_bat,"jan",rule_jan);
+#	bat.insert(rule_bat,"feb",rule_feb);
+#	bat.insert(rule_bat,"mar",rule_mar);
+#	bat.insert(rule_bat,"apr",rule_apr);
+##rule_bat.bat.insert("jan",rule_jan).insert("feb",rule_feb).insert("mar",rule_mar).insert("apr",rule_apr);
+#	bat.insert(rule_bat,"may",rule_may);
+#	bat.insert(rule_bat,"jun",rule_jun);
+#	bat.insert(rule_bat,"jul",rule_jul);
+#	bat.insert(rule_bat,"aug",rule_aug);
+##rule_bat.bat.insert("may",rule_may).insert("jun",rule_jun).insert("jul",rule_jul).insert("aug",rule_aug);
+#	bat.insert(rule_bat,"sep",rule_sep);
+#	bat.insert(rule_bat,"oct",rule_oct);
+#	bat.insert(rule_bat,"nov",rule_nov);
+#	bat.insert(rule_bat,"dec",rule_dec);
+##rule_bat.bat.insert("sep",rule_sep).insert("oct",rule_oct).insert("nov",rule_nov).insert("dec",rule_dec);
+##
+### test the operations on rules
+#	ma_a := bat.setColumn(rule_bat,"rule");
+##io.print(rule_bat.bat.setColumn("rule"),
+#	na_a:bat[:str,:int] := mal.multiplex("mtime","month",rule_bat);
+#	oa_a := bat.setColumn(na_a,"month");
+##      [month](rule_bat).bat.setColumn("month"),
+#	pa_a:bat[:str,:int] := mal.multiplex("mtime","weekday",rule_bat);
+#	qa_a := bat.setColumn(pa_a,"weekday");
+##      [weekday](rule_bat).bat.setColumn("weekday"),
+#	ra_a:bat[:str,:int] := mal.multiplex("mtime","day",rule_bat);
+#	sa_a := bat.setColumn(ra_a,"day");
+##      [day](rule_bat).bat.setColumn("day"),
+#	ta_a:bat[:str,:int] := mal.multiplex("mtime","minutes",rule_bat);
+#	ua_a := bat.setColumn(ta_a,"minutes");
+#io.print("rule_bat,na_a,pa_a,ra_a,ta_a");
+#	va_a := io.print(rule_bat,na_a,pa_a,ra_a,ta_a);
+##      [minutes](rule_bat).bat.setColumn("minutes"));
+##
+#	bat.setColumn(rule_bat,"rule");
+##io.print(rule_bat.bat.setColumn("rule"),
+#	xa_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,2001);
+#	ya_a := bat.setColumn(xa_a,"2001");
+##      [compute](rule_bat, 2001).bat.setColumn("2001"),
+#	ab_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,2001);
+#	bb_a:bat[:str,:int] := mal.multiplex("mtime","dayofweek",ab_a);
+#	cb_a:bat[:str,:str] := mal.multiplex("mtime","dayname",bb_a);
+#	bat.setColumn(cb_a,"2001");
+##      [dayname]([dayofweek]([compute](rule_bat, 2001))).bat.setColumn("2001"),
+#	eb_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1999);
+#	bat.setColumn(eb_a,"1999");
+##      [compute](rule_bat, 1999).bat.setColumn("1999"),
+#	gb_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1999);
+#	hb_a:bat[:str,:int] := mal.multiplex("mtime","dayofweek",gb_a);
+#	ib_a:bat[:str,:str] := mal.multiplex("mtime","dayname",hb_a);
+#	bat.setColumn(ib_a,"1999");
+##      [dayname]([dayofweek]([compute](rule_bat, 1999))).bat.setColumn("1999"),
+#	kb_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1992);
+#	bat.setColumn(kb_a,"1992");
+##      [compute](rule_bat, 1992).bat.setColumn("1992"),
+#	mb_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1992);
+#	nb_a:bat[:str,:int] := mal.multiplex("mtime","dayofweek",mb_a);
+#	ob_a:bat[:str,:str] := mal.multiplex("mtime","dayname",nb_a);
+#	bat.setColumn(ob_a,"1992");
+#io.print("rule_bat,xa_a,cb_a,eb_a,ib_a,kb_a,ob_a");
+#	qb_a := io.print(rule_bat,xa_a,cb_a,eb_a,ib_a,kb_a,ob_a);
+##      [dayname]([dayofweek]([compute](rule_bat, 1992))).bat.setColumn("1992"));
+##
+#	rb_a := bat.setColumn(rule_bat,"rule");
+##io.print(rule_bat.bat.setColumn("rule"),
+#	sb_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1572);
+#	tb_a := bat.setColumn(sb_a,"1572");
+##      [compute](rule_bat, 1572).bat.setColumn("1572"),
+#	ub_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1572);
+#	vb_a:bat[:str,:int] := mal.multiplex("mtime","dayofweek",ub_a);
+#	wb_a:bat[:str,:str] := mal.multiplex("mtime","dayname",vb_a);
+#	xb_a := bat.setColumn(wb_a,"1572");
+##      [dayname]([dayofweek]([compute](rule_bat, 1572))).bat.setColumn("1572"),
+#	yb_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1);
+#	ac_a := bat.setColumn(yb_a,"1");
+##      [compute](rule_bat, 1).bat.setColumn("1"),
+#	bc_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,1);
+#	cc_a:bat[:str,:int] := mal.multiplex("mtime","dayofweek",bc_a);
+#	dc_a:bat[:str,:str] := mal.multiplex("mtime","dayname",cc_a);
+#	ec_a := bat.setColumn(dc_a,"1");
+##      [dayname]([dayofweek]([compute](rule_bat, 1))).bat.setColumn("1"),
+#	fc_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,-2000);
+#	gc_a := bat.setColumn(fc_a,"-2000");
+##      [compute](rule_bat, -2000).bat.setColumn("-2000"),
+#	hc_a:bat[:str,:date] := mal.multiplex("mtime","compute",rule_bat,-2000);
+#	ic_a:bat[:str,:int] := mal.multiplex("mtime","dayofweek",hc_a);
+#	jc_a:bat[:str,:str] := mal.multiplex("mtime","dayname",ic_a);
+#	kc_a := bat.setColumn(jc_a,"-2000");
+#io.print("rule_bat,sb_a,wb_a,yb_a,dc_a,fc_a,jc_a");
+#	lc_a := io.print(rule_bat,sb_a,wb_a,yb_a,dc_a,fc_a,jc_a);
+##      [dayname]([dayofweek]([compute](rule_bat, -2000))).bat.setColumn("-2000"));
+##
+##
+#
+function user.main():void;
+# Mil compiler Version 1.0) 
+# Copyright (c) 1993-2001, CWI. All rights reserved. 
+# Predefined code segment 
+##line 531 "/ufs/mk/monet_5-0/src/modules/atoms/monettime.mx" 
+#module(monettime,alarm); 
+    lzone := mtime.timezone("GMT+01:00");
+    mtime.timezone_local(lzone);
+##line 535 "/ufs/mk/monet_5-0/src/modules/atoms/monettime.mx" 
+## test the various ways to create rules 
+    rule_jan := mtime.rule("1st MON from start of JAN@01:15");
+#var rule_jan := mtime.rule("1st MON from start of JAN@01:15"); 
+    rule_mar := mtime.rule("first WEDNE on or after march 10@01:15");
+#var rule_mar := mtime.rule("first WEDNE on or after march 10@01:15"); 
+    rule_apr := mtime.rule("last THU on or before aPr 1@01:15");
+#var rule_apr := mtime.rule("last THU on or before aPr 1@01:15"); 
+    rule_may := mtime.rule("MAY 26@01:15");
+#var rule_may := mtime.rule("MAY 26@01:15"); 
+    rule_jun := mtime.rule("2nd TUE from end of june@01:15");
+#var rule_jun := mtime.rule("2nd TUE from end of june@01:15"); 
+    rule_jul := mtime.rule(7,1,7,75);
+#var rule_jul := mtime.rule(7,1,7,75); 
+    rule_aug := mtime.rule(8,-1,7,75);
+#var rule_aug := mtime.rule(8,-1,7,75); 
+    rule_sep := mtime.rule(9,-10,2,75);
+#var rule_sep := mtime.rule(9,-10,2,75); 
+    rule_oct := mtime.rule(10,31,0,75);
+#var rule_oct := mtime.rule(10,31,0,75); 
+    rule_nov := mtime.rule(11,-10,-3,75);
+#var rule_nov := mtime.rule(11,-10,-3,75); 
+## nil rules 
+    rule_dec := mtime.rule(12,-31,0,75);
+#var rule_dec := mtime.rule(12,-31,0,75); 
+    rule_feb := mtime.rule("first fRiDaY on or after february 30@01:15");
+#var rule_feb := mtime.rule("first fRiDaY on or after february 30@01:15"); 
+#  
+    rule_bat := bat.new(:oid,:zrule,10);
+    rule_nme := bat.new(:oid,:str,10);
+#var rule_bat := bat.new(str,rule,10); 
+    bat.append(rule_bat,rule_jan);
+    bat.append(rule_bat,rule_feb);
+    bat.append(rule_bat,rule_mar);
+    bat.append(rule_bat,rule_apr);
+    bat.append(rule_nme,"jan");
+    bat.append(rule_nme,"feb");
+    bat.append(rule_nme,"mar");
+    bat.append(rule_nme,"apr");
+#rule_bat.bat.insert("jan",rule_jan).insert("feb",rule_feb).insert("mar",rule_mar).insert("apr",rule_apr); 
+    bat.append(rule_bat,rule_may);
+    bat.append(rule_bat,rule_jun);
+    bat.append(rule_bat,rule_jul);
+    bat.append(rule_bat,rule_aug);
+    bat.append(rule_nme,"may");
+    bat.append(rule_nme,"jun");
+    bat.append(rule_nme,"jul");
+    bat.append(rule_nme,"aug");
+#rule_bat.bat.append("may",rule_may).insert("jun",rule_jun).insert("jul",rule_jul).insert("aug",rule_aug); 
+    bat.append(rule_bat,rule_sep);
+    bat.append(rule_bat,rule_oct);
+    bat.append(rule_bat,rule_nov);
+    bat.append(rule_bat,rule_dec);
+    bat.append(rule_nme,"sep");
+    bat.append(rule_nme,"oct");
+    bat.append(rule_nme,"nov");
+    bat.append(rule_nme,"dec");
+#rule_bat.bat.insert("sep",rule_sep).insert("oct",rule_oct).insert("nov",rule_nov).insert("dec",rule_dec); 
+## test the operations on rules 
+    ma_a := bat.setColumn(rule_bat,"rule");
+#io.print(rule_bat.bat.setColumn("rule"), 
+    X_206 := bat.reverse(rule_bat);
+    X_208 := bat.new(nil:oid,nil:int);
+barrier (X_212,X_213) := iterator.new(rule_bat);
+    X_215 := mtime.month(X_213);
+    X_216 := algebra.fetch(X_206,X_212);
+    bat.insert(X_208,X_216,X_215);
+    redo (X_212,X_213) := iterator.next(rule_bat);
+exit (X_212,X_213);
+    na_a:bat[:oid,:int]  := X_208;
+    oa_a := bat.setColumn(na_a,"month");
+#      [month](rule_bat).bat.setColumn("month"), 
+    X_222 := bat.reverse(rule_bat);
+    X_224 := bat.new(nil:oid,nil:int);
+barrier (X_226,X_227) := iterator.new(rule_bat);
+    X_229 := mtime.weekday(X_227);
+    X_230 := algebra.fetch(X_222,X_226);
+    bat.insert(X_224,X_230,X_229);
+    redo (X_226,X_227) := iterator.next(rule_bat);
+exit (X_226,X_227);
+    pa_a:bat[:oid,:int]  := X_224;
+    qa_a := bat.setColumn(pa_a,"weekday");
+#      [weekday](rule_bat).bat.setColumn("weekday"), 
+    X_236 := bat.reverse(rule_bat);
+    X_238 := bat.new(nil:oid,nil:int);
+barrier (X_240,X_241) := iterator.new(rule_bat);
+    X_243 := mtime.day(X_241);
+    X_244 := algebra.fetch(X_236,X_240);
+    bat.insert(X_238,X_244,X_243);
+    redo (X_240,X_241) := iterator.next(rule_bat);
+exit (X_240,X_241);
+    ra_a:bat[:oid,:int]  := X_238;
+    sa_a := bat.setColumn(ra_a,"day");
+#      [day](rule_bat).bat.setColumn("day"), 
+    X_250 := bat.reverse(rule_bat);
+    X_252 := bat.new(nil:oid,nil:int);
+barrier (X_256,X_257) := iterator.new(rule_bat);
+    X_259 := mtime.minutes(X_257);
+    X_260 := algebra.fetch(X_250,X_256);
+    bat.insert(X_252,X_260,X_259);
+    redo (X_256,X_257) := iterator.next(rule_bat);
+exit (X_256,X_257);
+    ta_a:bat[:oid,:int]  := X_252;
+    ua_a := bat.setColumn(ta_a,"minutes");
+    io.print("rule_bat,na_a,pa_a,ra_a,ta_a");
+    va_a := io.print(rule_nme,rule_bat,na_a,pa_a,ra_a,ta_a);
+#      [minutes](rule_bat).bat.setColumn("minutes")); 
+    bat.setColumn(rule_bat,"rule");
+#io.print(rule_bat.bat.setColumn("rule"), 
+    X_266 := bat.reverse(rule_bat);
+    X_268 := bat.new(nil:oid,nil:date);
+barrier (X_271,X_272) := iterator.new(rule_bat);
+    X_274 := mtime.compute(X_272,2001);
+    X_275 := algebra.fetch(X_266,X_271);
+    bat.insert(X_268,X_275,X_274);
+    redo (X_271,X_272) := iterator.next(rule_bat);
+exit (X_271,X_272);
+    xa_a:bat[:oid,:date]  := X_268;
+    ya_a := bat.setColumn(xa_a,"2001");
+#      [compute](rule_bat, 2001).bat.setColumn("2001"), 
+    X_281 := bat.reverse(rule_bat);
+    X_283 := bat.new(nil:oid,nil:date);
+barrier (X_285,X_286) := iterator.new(rule_bat);
+    X_288 := mtime.compute(X_286,2001);
+    X_289 := algebra.fetch(X_281,X_285);
+    bat.insert(X_283,X_289,X_288);
+    redo (X_285,X_286) := iterator.next(rule_bat);
+exit (X_285,X_286);
+    ab_a:bat[:oid,:date]  := X_283;
+    X_295 := bat.reverse(ab_a);
+    X_297 := bat.new(nil:oid,nil:int);
+barrier (X_301,X_302) := iterator.new(ab_a);
+    X_304 := mtime.dayofweek(X_302);
+    X_305 := algebra.fetch(X_295,X_301);
+    bat.insert(X_297,X_305,X_304);
+    redo (X_301,X_302) := iterator.next(ab_a);
+exit (X_301,X_302);
+    bb_a:bat[:oid,:int]  := X_297;
+    X_311 := bat.reverse(bb_a);
+    X_313 := bat.new(nil:oid,nil:str);
+barrier (X_316,X_317) := iterator.new(bb_a);
+    X_319 := mtime.dayname(X_317);
+    X_320 := algebra.fetch(X_311,X_316);
+    bat.insert(X_313,X_320,X_319);
+    redo (X_316,X_317) := iterator.next(bb_a);
+exit (X_316,X_317);
+    cb_a:bat[:oid,:str]  := X_313;
+    bat.setColumn(cb_a,"2001");
+#      [dayname]([dayofweek]([compute](rule_bat, 2001))).bat.setColumn("2001"), 
+    X_326 := bat.reverse(rule_bat);
+    X_328 := bat.new(nil:oid,nil:date);
+barrier (X_331,X_332) := iterator.new(rule_bat);
+    X_334 := mtime.compute(X_332,1999);
+    X_335 := algebra.fetch(X_326,X_331);
+    bat.insert(X_328,X_335,X_334);
+    redo (X_331,X_332) := iterator.next(rule_bat);
+exit (X_331,X_332);
+    eb_a:bat[:oid,:date]  := X_328;
+    bat.setColumn(eb_a,"1999");
+#      [compute](rule_bat, 1999).bat.setColumn("1999"), 
+    X_341 := bat.reverse(rule_bat);
+    X_343 := bat.new(nil:oid,nil:date);
+barrier (X_346,X_347) := iterator.new(rule_bat);
+    X_349 := mtime.compute(X_347,1999);
+    X_350 := algebra.fetch(X_341,X_346);
+    bat.insert(X_343,X_350,X_349);
+    redo (X_346,X_347) := iterator.next(rule_bat);
+exit (X_346,X_347);
+    gb_a:bat[:oid,:date]  := X_343;
+    X_356 := bat.reverse(gb_a);
+    X_358 := bat.new(nil:oid,nil:int);
+barrier (X_361,X_362) := iterator.new(gb_a);
+    X_364 := mtime.dayofweek(X_362);
+    X_365 := algebra.fetch(X_356,X_361);
+    bat.insert(X_358,X_365,X_364);
+    redo (X_361,X_362) := iterator.next(gb_a);
+exit (X_361,X_362);
+    hb_a:bat[:oid,:int]  := X_358;
+    X_371 := bat.reverse(hb_a);
+    X_373 := bat.new(nil:oid,nil:str);
+barrier (X_376,X_377) := iterator.new(hb_a);
+    X_379 := mtime.dayname(X_377);
+    X_380 := algebra.fetch(X_371,X_376);
+    bat.insert(X_373,X_380,X_379);
+    redo (X_376,X_377) := iterator.next(hb_a);
+exit (X_376,X_377);
+    ib_a:bat[:oid,:str]  := X_373;
+    bat.setColumn(ib_a,"1999");
+#      [dayname]([dayofweek]([compute](rule_bat, 1999))).bat.setColumn("1999"), 
+    X_386 := bat.reverse(rule_bat);
+    X_388 := bat.new(nil:oid,nil:date);
+barrier (X_392,X_393) := iterator.new(rule_bat);
+    X_395 := mtime.compute(X_393,1992);
+    X_396 := algebra.fetch(X_386,X_392);
+    bat.insert(X_388,X_396,X_395);
+    redo (X_392,X_393) := iterator.next(rule_bat);
+exit (X_392,X_393);
+    kb_a:bat[:oid,:date]  := X_388;
+    bat.setColumn(kb_a,"1992");
+#      [compute](rule_bat, 1992).bat.setColumn("1992"), 
+    X_402 := bat.reverse(rule_bat);
+    X_404 := bat.new(nil:oid,nil:date);
+barrier (X_406,X_407) := iterator.new(rule_bat);
+    X_409 := mtime.compute(X_407,1992);
+    X_410 := algebra.fetch(X_402,X_406);
+    bat.insert(X_404,X_410,X_409);
+    redo (X_406,X_407) := iterator.next(rule_bat);
+exit (X_406,X_407);
+    mb_a:bat[:oid,:date]  := X_404;
+    X_416 := bat.reverse(mb_a);
+    X_418 := bat.new(nil:oid,nil:int);
+barrier (X_421,X_422) := iterator.new(mb_a);
+    X_424 := mtime.dayofweek(X_422);
+    X_425 := algebra.fetch(X_416,X_421);
+    bat.insert(X_418,X_425,X_424);
+    redo (X_421,X_422) := iterator.next(mb_a);
+exit (X_421,X_422);
+    nb_a:bat[:oid,:int]  := X_418;
+    X_431 := bat.reverse(nb_a);
+    X_433 := bat.new(nil:oid,nil:str);
+barrier (X_437,X_438) := iterator.new(nb_a);
+    X_440 := mtime.dayname(X_438);
+    X_441 := algebra.fetch(X_431,X_437);
+    bat.insert(X_433,X_441,X_440);
+    redo (X_437,X_438) := iterator.next(nb_a);
+exit (X_437,X_438);
+    ob_a:bat[:oid,:str]  := X_433;
+    bat.setColumn(ob_a,"1992");
+    io.print("rule_bat,xa_a,cb_a,eb_a,ib_a,kb_a,ob_a");
+    qb_a := io.print(rule_nme,rule_bat,xa_a,cb_a,eb_a,ib_a,kb_a,ob_a);
+#      [dayname]([dayofweek]([compute](rule_bat, 1992))).bat.setColumn("1992")); 
+    rb_a := bat.setColumn(rule_bat,"rule");
+#io.print(rule_bat.bat.setColumn("rule"), 
+    X_447 := bat.reverse(rule_bat);
+    X_449 := bat.new(nil:oid,nil:date);
+barrier (X_452,X_453) := iterator.new(rule_bat);
+    X_455 := mtime.compute(X_453,1572);
+    X_456 := algebra.fetch(X_447,X_452);
+    bat.insert(X_449,X_456,X_455);
+    redo (X_452,X_453) := iterator.next(rule_bat);
+exit (X_452,X_453);
+    sb_a:bat[:oid,:date]  := X_449;
+    tb_a := bat.setColumn(sb_a,"1572");
+#      [compute](rule_bat, 1572).bat.setColumn("1572"), 
+    X_462 := bat.reverse(rule_bat);
+    X_464 := bat.new(nil:oid,nil:date);
+barrier (X_466,X_467) := iterator.new(rule_bat);
+    X_469 := mtime.compute(X_467,1572);
+    X_470 := algebra.fetch(X_462,X_466);
+    bat.insert(X_464,X_470,X_469);
+    redo (X_466,X_467) := iterator.next(rule_bat);
+exit (X_466,X_467);
+    ub_a:bat[:oid,:date]  := X_464;
+    X_476 := bat.reverse(ub_a);
+    X_478 := bat.new(nil:oid,nil:int);
+barrier (X_482,X_483) := iterator.new(ub_a);
+    X_485 := mtime.dayofweek(X_483);
+    X_486 := algebra.fetch(X_476,X_482);
+    bat.insert(X_478,X_486,X_485);
+    redo (X_482,X_483) := iterator.next(ub_a);
+exit (X_482,X_483);
+    vb_a:bat[:oid,:int]  := X_478;
+    X_492 := bat.reverse(vb_a);
+    X_494 := bat.new(nil:oid,nil:str);
+barrier (X_497,X_498) := iterator.new(vb_a);
+    X_500 := mtime.dayname(X_498);
+    X_501 := algebra.fetch(X_492,X_497);
+    bat.insert(X_494,X_501,X_500);
+    redo (X_497,X_498) := iterator.next(vb_a);
+exit (X_497,X_498);
+    wb_a:bat[:oid,:str]  := X_494;
+    xb_a := bat.setColumn(wb_a,"1572");
+#      [dayname]([dayofweek]([compute](rule_bat, 1572))).bat.setColumn("1572"), 
+    X_507 := bat.reverse(rule_bat);
+    X_509 := bat.new(nil:oid,nil:date);
+barrier (X_512,X_513) := iterator.new(rule_bat);
+    X_515 := mtime.compute(X_513,1);
+    X_516 := algebra.fetch(X_507,X_512);
+    bat.insert(X_509,X_516,X_515);
+    redo (X_512,X_513) := iterator.next(rule_bat);
+exit (X_512,X_513);
+    yb_a:bat[:oid,:date]  := X_509;
+    ac_a := bat.setColumn(yb_a,"1");
+#      [compute](rule_bat, 1).bat.setColumn("1"), 
+    X_522 := bat.reverse(rule_bat);
+    X_524 := bat.new(nil:oid,nil:date);
+barrier (X_527,X_528) := iterator.new(rule_bat);
+    X_530 := mtime.compute(X_528,1);
+    X_531 := algebra.fetch(X_522,X_527);
+    bat.insert(X_524,X_531,X_530);
+    redo (X_527,X_528) := iterator.next(rule_bat);
+exit (X_527,X_528);
+    bc_a:bat[:oid,:date]  := X_524;
+    X_537 := bat.reverse(bc_a);
+    X_539 := bat.new(nil:oid,nil:int);
+barrier (X_542,X_543) := iterator.new(bc_a);
+    X_545 := mtime.dayofweek(X_543);
+    X_546 := algebra.fetch(X_537,X_542);
+    bat.insert(X_539,X_546,X_545);
+    redo (X_542,X_543) := iterator.next(bc_a);
+exit (X_542,X_543);
+    cc_a:bat[:oid,:int]  := X_539;
+    X_552 := bat.reverse(cc_a);
+    X_554 := bat.new(nil:oid,nil:str);
+barrier (X_557,X_558) := iterator.new(cc_a);
+    X_560 := mtime.dayname(X_558);
+    X_561 := algebra.fetch(X_552,X_557);
+    bat.insert(X_554,X_561,X_560);
+    redo (X_557,X_558) := iterator.next(cc_a);
+exit (X_557,X_558);
+    dc_a:bat[:oid,:str]  := X_554;
+    ec_a := bat.setColumn(dc_a,"1");
+#      [dayname]([dayofweek]([compute](rule_bat, 1))).bat.setColumn("1"), 
+    X_567 := bat.reverse(rule_bat);
+    X_569 := bat.new(nil:oid,nil:date);
+barrier (X_573,X_574) := iterator.new(rule_bat);
+    X_576 := mtime.compute(X_574,-2000);
+    X_577 := algebra.fetch(X_567,X_573);
+    bat.insert(X_569,X_577,X_576);
+    redo (X_573,X_574) := iterator.next(rule_bat);
+exit (X_573,X_574);
+    fc_a:bat[:oid,:date]  := X_569;
+    gc_a := bat.setColumn(fc_a,"-2000");
+#      [compute](rule_bat, -2000).bat.setColumn("-2000"), 
+    X_583 := bat.reverse(rule_bat);
+    X_585 := bat.new(nil:oid,nil:date);
+barrier (X_587,X_588) := iterator.new(rule_bat);
+    X_590 := mtime.compute(X_588,-2000);
+    X_591 := algebra.fetch(X_583,X_587);
+    bat.insert(X_585,X_591,X_590);
+    redo (X_587,X_588) := iterator.next(rule_bat);
+exit (X_587,X_588);
+    hc_a:bat[:oid,:date]  := X_585;
+    X_597 := bat.reverse(hc_a);
+    X_599 := bat.new(nil:oid,nil:int);
+barrier (X_602,X_603) := iterator.new(hc_a);
+    X_605 := mtime.dayofweek(X_603);
+    X_606 := algebra.fetch(X_597,X_602);
+    bat.insert(X_599,X_606,X_605);
+    redo (X_602,X_603) := iterator.next(hc_a);
+exit (X_602,X_603);
+    ic_a:bat[:oid,:int]  := X_599;
+    X_612 := bat.reverse(ic_a);
+    X_614 := bat.new(nil:oid,nil:str);
+barrier (X_618,X_619) := iterator.new(ic_a);
+    X_621 := mtime.dayname(X_619);
+    X_622 := algebra.fetch(X_612,X_618);
+    bat.insert(X_614,X_622,X_621);
+    redo (X_618,X_619) := iterator.next(ic_a);
+exit (X_618,X_619);
+    jc_a:bat[:oid,:str]  := X_614;
+    kc_a := bat.setColumn(jc_a,"-2000");
+    io.print("rule_bat,sb_a,wb_a,yb_a,dc_a,fc_a,jc_a");
+    lc_a := io.print(rule_nme,rule_bat,sb_a,wb_a,yb_a,dc_a,fc_a,jc_a);
+#      [dayname]([dayofweek]([compute](rule_bat, -2000))).bat.setColumn("-2000")); 
+end main;
+[ "rule_bat,na_a,pa_a,ra_a,ta_a" ]
+#-----------------------------------------------------------------------------------------------------------------#
+# h	t	rule						month	weekday		day	minutes		  # name
+# void	str	zrule						int	int		int	int		  # type
+#-----------------------------------------------------------------------------------------------------------------#
+[ 0@0,	  "jan",  first monday from start of january@01:15,	  1,	  1,		  1,	  75		  ]
+[ 1@0,	  "feb",  nil,						  nil,	  nil,		  nil,	  nil		  ]
+[ 2@0,	  "mar",  first wednesday on or after march 10@01:15,	  3,	  -3,		  10,	  75		  ]
+[ 3@0,	  "apr",  last thursday on or before april 1@01:15,	  4,	  -4,		  -1,	  75		  ]
+[ 4@0,	  "may",  may 26@01:15,					  5,	  0,		  26,	  75		  ]
+[ 5@0,	  "jun",  second tuesday from end of june@01:15,	  6,	  2,		  -2,	  75		  ]
+[ 6@0,	  "jul",  first sunday from start of july@01:15,	  7,	  7,		  1,	  75		  ]
+[ 7@0,	  "aug",  first sunday from end of august@01:15,	  8,	  7,		  -1,	  75		  ]
+[ 8@0,	  "sep",  10th tuesday from end of september@01:15,	  9,	  2,		  -10,	  75		  ]
+[ 9@0,	  "oct",  october 31@01:15,				  10,	  0,		  31,	  75		  ]
+[ 10@0,	  "nov",  last wednesday on or before november 10@01:15,  11,	  -3,		  -10,	  75		  ]
+[ 11@0,	  "dec",  nil,						  nil,	  nil,		  nil,	  nil		  ]
+[ "rule_bat,xa_a,cb_a,eb_a,ib_a,kb_a,ob_a" ]
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# h	t	rule						2001		2001		1999		1999		1992		1992		  # name
+# void	str	zrule						date		str		date		str		date		str		  # type
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+[ 0@0,	  "jan",  first monday from start of january@01:15,	  2001-01-01,	  "monday",	  1999-01-04,	  "monday",	  1992-01-06,	  "monday"	  ]
+[ 1@0,	  "feb",  nil,						  nil,		  nil,		  nil,		  nil,		  nil,		  nil		  ]
+[ 2@0,	  "mar",  first wednesday on or after march 10@01:15,	  2001-03-14,	  "wednesday",	  1999-03-10,	  "wednesday",	  1992-03-11,	  "wednesday"	  ]
+[ 3@0,	  "apr",  last thursday on or before april 1@01:15,	  2001-03-29,	  "thursday",	  1999-04-01,	  "thursday",	  1992-03-26,	  "thursday"	  ]
+[ 4@0,	  "may",  may 26@01:15,					  2001-05-26,	  "saturday",	  1999-05-26,	  "wednesday",	  1992-05-26,	  "tuesday"	  ]
+[ 5@0,	  "jun",  second tuesday from end of june@01:15,	  2001-06-19,	  "tuesday",	  1999-06-22,	  "tuesday",	  1992-06-23,	  "tuesday"	  ]
+[ 6@0,	  "jul",  first sunday from start of july@01:15,	  2001-07-01,	  "sunday",	  1999-07-04,	  "sunday",	  1992-07-05,	  "sunday"	  ]
+[ 7@0,	  "aug",  first sunday from end of august@01:15,	  2001-08-26,	  "sunday",	  1999-08-29,	  "sunday",	  1992-08-30,	  "sunday"	  ]
+[ 8@0,	  "sep",  10th tuesday from end of september@01:15,	  2001-07-24,	  "tuesday",	  1999-07-27,	  "tuesday",	  1992-07-28,	  "tuesday"	  ]
+[ 9@0,	  "oct",  october 31@01:15,				  2001-10-31,	  "wednesday",	  1999-10-31,	  "sunday",	  1992-10-31,	  "saturday"	  ]
+[ 10@0,	  "nov",  last wednesday on or before november 10@01:15,  2001-11-07,	  "wednesday",	  1999-11-10,	  "wednesday",	  1992-11-04,	  "wednesday"	  ]
+[ 11@0,	  "dec",  nil,						  nil,		  nil,		  nil,		  nil,		  nil,		  nil		  ]
+[ "rule_bat,sb_a,wb_a,yb_a,dc_a,fc_a,jc_a" ]
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# h	t	rule						1572		1572		1		1		-2000		-2000		  # name
+# void	str	zrule						date		str		date		str		date		str		  # type
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+[ 0@0,	  "jan",  first monday from start of january@01:15,	  1572-01-03,	  "monday",	  1-01-01,	  "monday",	  -2000-01-01,	  "monday"	  ]
+[ 1@0,	  "feb",  nil,						  nil,		  nil,		  nil,		  nil,		  nil,		  nil		  ]
+[ 2@0,	  "mar",  first wednesday on or after march 10@01:15,	  1572-03-15,	  "wednesday",	  1-03-14,	  "wednesday",	  -2000-03-14,	  "wednesday"	  ]
+[ 3@0,	  "apr",  last thursday on or before april 1@01:15,	  1572-03-30,	  "thursday",	  1-03-29,	  "thursday",	  -2000-03-29,	  "thursday"	  ]
+[ 4@0,	  "may",  may 26@01:15,					  1572-05-26,	  "friday",	  1-05-26,	  "saturday",	  -2000-05-26,	  "saturday"	  ]
+[ 5@0,	  "jun",  second tuesday from end of june@01:15,	  1572-06-20,	  "tuesday",	  1-06-19,	  "tuesday",	  -2000-06-19,	  "tuesday"	  ]
+[ 6@0,	  "jul",  first sunday from start of july@01:15,	  1572-07-02,	  "sunday",	  1-07-01,	  "sunday",	  -2000-07-01,	  "sunday"	  ]
+[ 7@0,	  "aug",  first sunday from end of august@01:15,	  1572-08-27,	  "sunday",	  1-08-26,	  "sunday",	  -2000-08-26,	  "sunday"	  ]
+[ 8@0,	  "sep",  10th tuesday from end of september@01:15,	  1572-07-25,	  "tuesday",	  1-07-24,	  "tuesday",	  -2000-07-24,	  "tuesday"	  ]
+[ 9@0,	  "oct",  october 31@01:15,				  1572-10-31,	  "tuesday",	  1-10-31,	  "wednesday",	  -2000-10-31,	  "wednesday"	  ]
+[ 10@0,	  "nov",  last wednesday on or before november 10@01:15,  1572-11-08,	  "wednesday",	  1-11-07,	  "wednesday",	  -2000-11-07,	  "wednesday"	  ]
+[ 11@0,	  "dec",  nil,						  nil,		  nil,		  nil,		  nil,		  nil,		  nil		  ]
+
+# 23:31:29 >  
+# 23:31:29 >  Done.
+# 23:31:29 >  
+

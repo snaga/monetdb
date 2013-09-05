@@ -1,0 +1,22 @@
+# the first test for macro expansions and inversions
+
+function joinPath( a:bat[:any_1,:any_2], b:bat[:any_2,:any_3], c:bat[:any_3,:any_4]):bat[:any_1,:any_4];
+    z:= algebra.join(a,b);
+    zz:= algebra.join(z,c);
+    return zz;
+end joinPath;
+
+optimizer.orcam("user","joinPath");
+
+a:= bat.new(:oid,:int);
+b:= bat.new(:oid,:int);
+br:= bat.reverse(b);
+c:= bat.new(:oid,:int);
+g:= algebra.join(a,br);
+h:= algebra.join(g,c);
+
+ao := batcalc.oid(a);
+bo := batcalc.oid(b);
+bor := bat.reverse(bo);
+r:= algebra.joinPath(ao,bor,c);
+mdb.List();

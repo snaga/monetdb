@@ -1,0 +1,6 @@
+^Makefile$
+^Makefile\.ag$
+^Makefile\.old$
+^pm_to_blib$
+\.properties$
+^blib/

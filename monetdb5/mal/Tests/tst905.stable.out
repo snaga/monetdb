@@ -1,0 +1,61 @@
+stdout of test 'tst905` in directory 'monetdb5/mal` itself:
+
+
+# 08:01:37 >  
+# 08:01:37 >  Mtimeout -timeout 60 Mserver "--config=/ufs/mk/monet5/Linux/etc/MonetDB5.conf" --debug=10 --set "monet_mod_path=/ufs/mk/monet5/Linux/lib/MonetDB5:/ufs/mk/opensource/MonetDB/Linux/lib/MonetDB" --set "gdk_dbfarm=/ufs/mk/monet5/Linux/var/MonetDB5/dbfarm" --set "sql_logdir=/ufs/mk/monet5/Linux/var/MonetDB5/log" --set mapi_port=42158 --set sql_port=55708 --set monet_prompt= --trace "--config=/ufs/mk/monet5/src/mal/Tests/All.conf" --dbname=mTests_src_mal  tst905.mal </dev/null
+# 08:01:37 >  
+
+# Monet Database Server V4.99.19
+# Copyright (c) 1993-2004, CWI. All rights reserved.
+# Compiled for i686-redhat-linux-gnu/32bit; dynamically linked.
+# config:/ufs/mk/monet5/Linux/etc/MonetDB5.conf
+# dbfarm:/ufs/mk/monet5/Linux/var/MonetDB5/dbfarm
+# dbname:mTests_src_mal
+# Visit http://monetdb.cwi.nl/ for further information.
+## the multiplex code blocks.
+#
+#b:= new(:lng,:lng);
+#barrier (v,i):= newRange(0:lng);
+#	insert(b,i,i);
+#	redo (v,i):= nextElement(1:lng,10:lng);
+#exit (v,i);
+#
+function user.main():void;
+# the multiplex code blocks. 
+    b := bat.new(:oid,:lng);
+barrier i := 0:lng;
+    bat.append(b,i);
+    redo i := iterator.next(1:lng,10:lng);
+exit i;
+    c := algebra.copy(b);
+    X_15 := bat.reverse(b);
+    X_17 := bat.new(nil:oid,nil:lng);
+barrier (X_21,X_22) := iterator.new(b);
+    X_24 := algebra.fetch(c,X_21);
+    X_26 := calc.+(X_22,X_24);
+    X_27 := algebra.fetch(X_15,X_21);
+    bat.insert(X_17,X_27,X_26);
+    redo (X_21,X_22) := iterator.next(b);
+exit (X_21,X_22);
+    x:bat[:oid,:lng]  := X_17;
+    io.print(x);
+end main;
+#-----------------#
+# h	tmp_6	  # name
+# lng	lng	  # type
+#-----------------#
+[ 0@0,	  0	  ]
+[ 1@0,	  2	  ]
+[ 2@0,	  4	  ]
+[ 3@0,	  6	  ]
+[ 4@0,	  8	  ]
+[ 5@0,	  10	  ]
+[ 6@0,	  12	  ]
+[ 7@0,	  14	  ]
+[ 8@0,	  16	  ]
+[ 9@0,	  18	  ]
+
+# 08:01:37 >  
+# 08:01:37 >  Done.
+# 08:01:37 >  
+

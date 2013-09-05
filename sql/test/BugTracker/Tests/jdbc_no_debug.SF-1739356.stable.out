@@ -1,0 +1,91 @@
+stdout of test 'jdbc_no_debug.SF-1739356` in directory 'sql/test/BugTracker` itself:
+
+
+# 13:44:44 >  
+# 13:44:44 >   mserver5 "--config=/ufs/niels/scratch/rc/Linux-x86_64/etc/monetdb5.conf" --debug=10 --set gdk_nr_threads=0 --set "monet_mod_path=/ufs/niels/scratch/rc/Linux-x86_64/lib/MonetDB5:/ufs/niels/scratch/rc/Linux-x86_64/lib/MonetDB5/lib:/ufs/niels/scratch/rc/Linux-x86_64/lib/MonetDB5/bin" --set "gdk_dbfarm=/ufs/niels/scratch/rc/Linux-x86_64/var/MonetDB5/dbfarm"    --set mapi_open=true --set xrpc_open=true --set mapi_port=36629 --set xrpc_port=45999 --set monet_prompt= --trace  "--dbname=mTests_src_test_BugTracker" --set mal_listing=0 "--dbinit= include sql;" ; echo ; echo Over..
+# 13:44:44 >  
+
+# MonetDB server v5.12.0, based on kernel v1.30.0
+# Serving database 'mTests_src_test_BugTracker', using 4 threads
+# Compiled for x86_64-unknown-linux-gnu/64bit with 64bit OIDs dynamically linked
+# Copyright (c) 1993-July 2008 CWI.
+# Copyright (c) August 2008-2009 MonetDB B.V., all rights reserved
+# Visit http://monetdb.cwi.nl/ for further information
+# Listening for connection requests on mapi:monetdb://alf.ins.cwi.nl:36629/
+# MonetDB/SQL module v2.30.0 loaded
+
+Ready.
+
+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+| rel                                                                                                                                                                                                                                                                       |
++=========================================================================================================================+
+| project (                                                                                                                                                                                                                                                                 |
+| | group by (                                                                                                                                                                                                                                                              |
+| | | union (                                                                                                      |
+| | | | group by (                                                                                                 |
+| | | | | project (                                                                                                                                                                                                                                                         |
+| | | | | | select (                                                                                                                                                                                                                                                        |
+| | | | | | | table(sys._tables) [ _tables.id as p.id, _tables.type as p.type, _tables.%TID% NOT NULL as p.%TID% ] COUNT  |
+| | | | | | ) [ p.type != smallint[tinyint "2"] ]                                                                                                                                                                                                                                                                   |
+| | | | | ) [ p.id as tables.id ]                                                                                  |
+| | | | ) [  ] [ sys.count() NOT NULL as L1.L1 ],                                                                         |
+| | | | group by (                                                                                                 |
+| | | | | project (                                                                                                                                                                                                                                                         |
+| | | | | | select (                                                                                                                                                                                                                                                        |
+| | | | | | | table(tmp._tables) [ _tables.id as t.id, _tables.type as t.type, _tables.%TID% NOT NULL as t.%TID% ] COUNT  |
+| | | | | | ) [ t.type != smallint[tinyint "2"] ]                                                                                                                                                                                                                                                                   |
+| | | | | ) [ t.id as tables.id ]                                                                                  |
+| | | | ) [  ] [ sys.count() NOT NULL as L1.L1 ]                                                                          |
+| | | ) [ L1.L1 ]                                                                                                         |
+| | ) [  ] [ sys.sum no nil (L1.L1) as L1.L1 ]                                                                            |
+| ) [ L1 NOT NULL as L1.L1 ]                                                                                                                                                                                                                                                                                        |
++-------------------------------------------------------------------------------------------------------------------------+
+20 rows
+
+Operation successful
+
++----------------------------------------------------------------------+
+| mal                                                                 |
++======================================================================+
+| function user.s1_1{autoCommit=true}():void;                         |
+|     X_3:bat[:oid,:wrd]  := bat.new(nil:oid,nil:wrd);                |
+|     X_2 := sql.mvc();                                               |
+|     X_9 := sql.bind(X_2,"sys","_tables","type",0);          |
+|     X_6:bat[:oid,:oid]  := sql.tid(X_2,"sys","_tables");    |
+|     X_61 := algebra.subselect(X_9,X_6,2:sht,2:sht,true,true,true);   |
+|     (X_12,r1_12) := sql.bind(X_2,"sys","_tables","type",2); |
+|     X_62 := algebra.subselect(r1_12,2:sht,2:sht,true,true,true);     |
+|     X_15 := sql.bind(X_2,"sys","_tables","type",1);         |
+|     X_63 := algebra.subselect(X_15,X_6,2:sht,2:sht,true,true,true);  |
+|     X_17 := sql.subdelta(X_61,X_6,X_12,X_62,X_63);                   |
+|     X_18 := sql.bind(X_2,"sys","_tables","id",0);                    |
+|     (X_20,r1_25) := sql.bind(X_2,"sys","_tables","id",2);            |
+|     X_22 := sql.bind(X_2,"sys","_tables","id",1);                    |
+|     X_23 := sql.projectdelta(X_17,X_18,X_20,r1_25,X_22);             |
+|     X_24 := aggr.count(X_23);                                        |
+|     X_25 := sql.single(X_24);                                        |
+|     X_26 := bat.append(X_3,X_25,true);                               |
+|     X_30 := sql.bind(X_2,"tmp","_tables","type",0);                  |
+|     X_31 := X_30;                                                    |
+|     X_28:bat[:oid,:oid]  := sql.tid(X_2,"tmp","_tables");            |
+|     X_32 := algebra.subselect(X_31,X_28,2:sht,2:sht,true,true,true); |
+|     X_33 := sql.bind(X_2,"tmp","_tables","id",0);                    |
+|     X_36 := X_33;                                                    |
+|     X_37 := algebra.leftfetchjoin(X_32,X_36);                        |
+|     X_38 := aggr.count(X_37);                                        |
+|     X_39 := bat.append(X_26,X_38,true);                              |
+|     X_40 := algebra.selectNotNil(X_39);                              |
+|     X_41:wrd  := aggr.sum(X_40);                                     |
+|     sql.exportValue(1,".L1","L1","wrd",64,0,6,X_41,"");              |
+| end s1_1;                                                           |
++----------------------------------------------------------------------+
+31 rows
+
+
+# 19:39:11 >  
+# 19:39:11 >  "Done."
+# 19:39:11 >  
+

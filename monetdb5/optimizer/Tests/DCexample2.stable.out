@@ -1,0 +1,34 @@
+stdout of test 'DCexample2` in directory 'monetdb5/optimizer` itself:
+
+
+# 22:31:27 >  
+# 22:31:27 >  Mtimeout -timeout 60 mserver5 "--config=/ufs/mk/monet5/Linux/etc/monetdb5.conf" --debug=10 --set "monet_mod_path=/ufs/mk/monet5//Linux/lib/MonetDB5:/ufs/mk/monet5//Linux/lib/MonetDB5/lib:/ufs/mk/monet5//Linux/lib/MonetDB5/bin" --set "gdk_dbfarm=/ufs/mk/monet5//Linux/var/MonetDB5/dbfarm" --set "sql_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/sql_logs" --set "xquery_logdir=/ufs/mk/monet5//Linux/var/MonetDB5/xquery_logs" --set mapi_port=34030 --set xrpc_port=44388 --set monet_prompt= --trace --dbname=mTests_src_optimizer  DCexample2.mal < /dev/null
+# 22:31:27 >  
+
+# MonetDB Server v5.0.0_beta2_1
+# Copyright (c) 1993-2007 CWI, all rights reserved
+# Compiled for x86_64-redhat-linux-gnu/64bit with 64bit OIDs dynamically linked
+# dbname:mTests_src_optimizer
+# Visit http://monetdb.cwi.nl/ for further information
+# Listening for connection requests on mapi:monetdb://eir.ins.cwi.nl:32348/
+function user.main():void;
+    b := bat.new(:oid,:int);
+    bat.append(b,2);
+    bat.append(b,5);
+    bat.append(b,3);
+    b := algebra.sort(b);
+    mdb.List();
+end main;
+function user.main():void;              #  0 main:void := user.main() {G}
+    b := bat.new(:oid,:int);            #  1 b:bat[:oid,:int] := CMDBATnew(_3:oid, _4:int) {G}
+    bat.append(b,2);                    #  2 _5:bat[:oid,:int] := BKCappend_val_wrap(b:bat[:oid,:int], _6:int) {G}
+    bat.append(b,5);                    #  3 _7:bat[:oid,:int] := BKCappend_val_wrap(b:bat[:oid,:int], _8:int) {G}
+    bat.append(b,3);                    #  4 _9:bat[:oid,:int] := BKCappend_val_wrap(b:bat[:oid,:int], _10:int) {G}
+    b := algebra.sort(b);               #  5 b:bat[:oid,:int] := ALGhsort(b:bat[:oid,:int]) {G}
+    mdb.List();                         #  6 _13:void := MDBlistDetail() 
+end main;	# 7  
+
+# 22:31:27 >  
+# 22:31:27 >  Done.
+# 22:31:27 >  
+

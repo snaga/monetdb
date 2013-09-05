@@ -1,0 +1,12 @@
+T1:= bat.new(:oid,:oid);
+T2:= bat.new(:oid,:oid);
+T3:= bat.new(:oid,:oid);
+T4:= bat.new(:oid,:oid);
+a:= algebra.select(T1,1@0,3@0);
+b:= algebra.select(T2,1@0,3@0);
+c:= algebra.select(T3,0@0,5@0);
+d:= algebra.select(T4,0@0,5@0);
+e:= algebra.join(a,c);
+f:= algebra.join(b,d);
+h:= algebra.join(e,f);
+optimizer.dumpQEP();

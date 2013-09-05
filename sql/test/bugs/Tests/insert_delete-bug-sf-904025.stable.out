@@ -1,0 +1,58 @@
+stdout of test 'insert_delete-bug-sf-904025` in directory 'sql/test/bugs` itself:
+
+
+# 16:28:05 >  
+# 16:28:05 >  Mtimeout -timeout 180 mserver5 "--config=/net/gio/export/scratch0/goncalve/MonetDB/monetdb5/etc/monetdb5.conf" --debug=10 --set "monet_mod_path=/net/gio/export/scratch0/goncalve/MonetDB/monetdb5/lib/MonetDB5:/net/gio/export/scratch0/goncalve/MonetDB/monetdb5/lib/MonetDB5/lib:/net/gio/export/scratch0/goncalve/MonetDB/monetdb5/lib/MonetDB5/bin" --set "gdk_dbfarm=/net/gio/export/scratch0/goncalve/MonetDB/monetdb5/var/MonetDB5/dbfarm" --set "sql_logdir=/net/gio/export/scratch0/goncalve/MonetDB/monetdb5/var/MonetDB5/sql_logs" --set "xquery_logdir=something" --set mapi_port=37188 --set monet_prompt= --trace "--dbname=mTests_src_test_bugs" --dbinit='include sql;' ; echo ; echo Over..
+# 16:28:05 >  
+
+# MonetDB Server v5.0.0_alpha1
+# Copyright (c) 1993-2007 CWI, all rights reserved
+# Compiled for x86_64-redhat-linux-gnu/64bit with 64bit OIDs dynamically linked
+# dbname:mTests_src_test_bugs
+# Visit http://monetdb.cwi.nl/ for further information
+
+Ready.
+
+
+# 21:30:34 >  
+# 21:30:34 >  mclient -lsql -ftest -i -e --host=alf --port=30040 
+# 21:30:34 >  
+
+#create table tmp(name string, id int);
+#insert into tmp select name, id from tables where "type" = 0;
+[ 28	]
+#select count(*) from tmp;
+% sys.L1 # table_name
+% L1 # name
+% wrd # type
+% 2 # length
+[ 28	]
+#delete from tmp;
+[ 28	]
+#select count(*) from tmp;
+% sys.L1 # table_name
+% L1 # name
+% wrd # type
+% 1 # length
+[ 0	]
+#insert into tmp select name, id from tables where "type" = 0;
+[ 28	]
+#select count(*) from tmp;
+% sys.L1 # table_name
+% L1 # name
+% wrd # type
+% 2 # length
+[ 28	]
+#delete from tmp;
+[ 28	]
+#select count(*) from tmp;
+% sys.L1 # table_name
+% L1 # name
+% wrd # type
+% 1 # length
+[ 0	]
+
+# 12:48:06 >  
+# 12:48:06 >  Done.
+# 12:48:06 >  
+
